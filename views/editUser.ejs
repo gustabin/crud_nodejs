@@ -1,0 +1,103 @@
+<%- include("template/header", {title: 'Pagina index'}) %>
+<%- include('template/navbar') %>
+<%- include('template/aside') %>
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <%- include('template/breadcrumb', {module: 'Users'}) %>
+    
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Edit record</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+
+                <% if (user) { %>
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <form action="/editUser" method="POST">
+                            <input id="id" name="id" value="<%= user.id %>" hidden> 
+                            <div class="row">
+                              <div class="col-sm-9">
+                                <div class="form-group">
+                                  <label for="name" class="form-label">Name</label>
+                                  <input type="text" class="form-control" id="name" name="name" tabindex="1" value="<%= user.name  %>"> 
+                                </div>
+                              </div>                             
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-9">
+                                <div class="form-group">
+                                  <label for="email" class="form-label">Email</label>
+                                  <input type="email" class="form-control" id="email" name="email" tabindex="1" value="<%= user.email  %>"> 
+                                </div>
+                              </div>
+                            </div>
+      
+                            <div class="row">
+                              <div class="col-sm-9">
+                                <div class="form-group">
+                                  <label for="rol" class="form-label">Rol</label>
+                                  <select id="rol" name="rol" class="form-select"  value="" tabindex="2">
+                                      <option <%- user.rol=='subscriber' ? "selected" : "" %> value="subscriber">Subscriber</option>
+                                      <option <%- user.rol=='admin' ? "selected" : "" %> value="admin">Admin</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                                                                                    
+                            <button type="submit" class="btn btn-primary my-2" tabindex="5">Save</button>
+                            <a href="/users" class="btn btn-secondary">Cancel</a>
+                        </form>    
+
+                      </div>
+                      <div class="col-md-6">
+                            <div class="row">                              
+                              <div class="col-sm-9">
+                                <div class="form-group">
+                                  <% if (user.image) { %>
+                                  <img src="../uploads/<%= user.image  %>" alt="<%= user.image  %>" width="70px" height="70px">  
+                                  <% } %>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">                              
+                              <div class="col-sm-12">
+                                <form action="/upload/<%= user.id %>" method="POST" enctype="multipart/form-data">
+                                  <input type="file" name="image" class="btn btn-secondary">
+                                  <button type="submit" class="btn btn-primary">
+                                    Upload
+                                  </button>
+                                </form>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Upload image -->
+
+                 
+                <% } %>
+
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+<%- include('template/footer') %>

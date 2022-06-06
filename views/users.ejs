@@ -1,0 +1,92 @@
+<%- include("template/header", {title: 'Pagina index'}) %>
+<%- include('template/navbar') %>
+<%- include('template/aside') %>
+    
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <%- include('template/breadcrumb', {module: 'Users'}) %>
+    
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">DataTable with default features</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+
+                <a href="createUser" class="btn btn-primary mb-4">Add new <i class="fas fa-plus-square fa-2x"></i></a>    
+                <table id="tableUsers" class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr class="text-white bg-success2" style="background-color: #6c757d">
+                            <th scope="col">ID</th>
+                            <th scope="col">EMAIL</th>
+                            <th scope="col">NAME</th>
+                            <th scope="col">ROL</th>            
+                            <th scope="col">ACTIONS</th>             
+                        </tr>
+                    </thead>                    
+                </table>
+             
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+
+  <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap5.min.js"></script>        
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  
+  <script> 
+    $('#tableUsers').DataTable({    
+        ajax: {
+            url: "/dataUsers",
+            dataSrc: ""
+        },   
+        columns: [ 
+            {"data": "id"},        
+            {'data': 'email'},
+            {'data': 'name'},
+            {'data': 'rol'},          
+            {"data": null,
+                "render": function (data) { 
+                    return '<a href="editUser/'+data.id+ '"class="btn btn-primary"><i class="fas fa-edit"></i></a> <a onclick="confirmation('+data.id+')" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>'                           
+                    }
+            }
+        ],
+        pageLength : 5,  
+        lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]    
+    }); 
+
+
+    function confirmation(id) {
+        Swal.fire({
+            title: 'Are you sure you want to delete the record '+id+' ?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Confirm'
+        }).then((result) => {
+            if (result.isConfirmed) {   
+            window.location = '/deleteUser/'+id;                              
+            }
+        });
+    };
+  </script>
+<%- include('template/footer') %>

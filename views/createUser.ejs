@@ -1,0 +1,57 @@
+<%- include("template/header", {title: 'Pagina index'}) %>
+<%- include('template/navbar') %>
+<%- include('template/aside') %>
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <%- include('template/breadcrumb', {module: 'Users'}) %>
+    
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">New Record</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+
+                <form action="/saveUser" method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name"  tabindex="1" autofocus>
+                    </div>   
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" tabindex="2">
+                        </div>
+                    <div class="mb-3">
+                    <label for="rol" class="form-label">Rol</label>
+                    <select id="rol" name="rol" class="form-select" aria-label="Default select example" tabindex="3">
+                        <option value="admin" selected>Admin</option>
+                        <option value="subscriber">Subscriber</option>                    
+                    </select>
+                    </div>        
+                    <button type="submit" class="btn btn-primary" tabindex="4">Save</button>
+                    <a href="/users" class="btn btn-secondary" tabindex="5">Cancel</a>
+                </form>
+             
+               
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+<!-- /.content-wrapper -->
+
+<%- include('template/footer') %>
